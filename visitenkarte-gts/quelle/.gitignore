@@ -1,0 +1,12 @@
+# Zwischenstände von build.sh
+fonts/
+.npm/
+out/
+*.svg
+*_rgb.pdf
+*_cmyk_raw.pdf
+*_preview.png
+front_bg*.png
+back_bg*.png
+front_geom.json
+__pycache__/
