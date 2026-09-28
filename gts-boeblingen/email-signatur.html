@@ -47,7 +47,7 @@
     color: var(--text);
     font: 15px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   }
-  main { max-width: 760px; margin: 0 auto; padding: 32px 16px 56px; }
+  main { max-width: 720px; margin: 0 auto; padding: 32px 16px 56px; }
   h1 { font-size: 22px; margin: 0 0 4px; }
   .lead { margin: 0 0 24px; color: var(--muted); }
   h2 { font-size: 16px; margin: 32px 0 10px; }
@@ -58,26 +58,26 @@
     border: 1px solid var(--border);
     border-radius: 10px;
     padding: 24px 20px;
-    overflow-x: auto;
     box-shadow: 0 1px 2px rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.05);
   }
 
   .actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0 6px; }
-  button, .btn {
+  button {
     font: inherit;
     font-weight: 600;
     border-radius: 8px;
-    padding: 10px 16px;
+    padding: 12px 18px;
     cursor: pointer;
     border: 1px solid var(--border);
     background: var(--surface);
     color: var(--text);
-    text-decoration: none;
   }
-  button.primary { background: var(--brand); border-color: var(--brand); color: var(--btn-text); }
-  button:focus-visible, .btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  button.primary { background: var(--brand); border-color: var(--brand); color: var(--btn-text); font-size: 16px; }
+  button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
   .status { min-height: 22px; font-size: 14px; color: var(--ok); }
 
+  .steps { margin: 0; padding-left: 22px; }
+  .steps li { margin: 6px 0; }
   details {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -96,15 +96,6 @@
     padding: 1px 5px;
     background: var(--bg);
   }
-  pre {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 14px;
-    white-space: pre-wrap;
-    font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
-    margin: 0;
-  }
   .note { color: var(--muted); font-size: 14px; }
 </style>
 </head>
@@ -114,85 +105,56 @@
   <p class="lead">GTS Gebäudereinigung Böblingen, Tuncay Eroglu</p>
 
   <div class="mail">
-    <div id="signature"><div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:22px;color:#222222;">Für Rückfragen stehe ich Ihnen jederzeit gerne zur Verfügung.<br><br>Mit freundlichen Grüßen<br><br><span style="font-family:Georgia,'Times New Roman',Times,serif;font-size:20px;color:#111111;"><b>Tuncay Eroglu</b></span><br><span style="font-family:Arial,Helvetica,sans-serif;font-size:11px;letter-spacing:1.5px;color:#8a6d3b;"><b>GTS GEBÄUDEREINIGUNG BÖBLINGEN</b></span><br><br><span style="font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#222222;"><b style="color:#8a6d3b;">Telefon:</b>&nbsp; <a href="tel:+491701601830" style="color:#222222;text-decoration:none;">0170 1601830</a><br><b style="color:#8a6d3b;">E-Mail:</b>&nbsp; <a href="mailto:info@gts-boeblingen.de" style="color:#222222;text-decoration:none;">info@gts-boeblingen.de</a></span><br><br><img src="https://raw.githubusercontent.com/mertaktasbusiness-afk/Webseiten/8d7ce708bdb8ad48aa384dfa555638444144c02f/gts-boeblingen/logo-signatur.png" width="220" height="103" alt="GTS – Gebäude · Technik · Service" style="display:block;width:220px;height:103px;border:0;"></div></div>
+    <div id="signature"><div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:22px;color:#222222;">Für Rückfragen stehe ich Ihnen jederzeit gerne zur Verfügung.<br><br>Mit freundlichen Grüßen<br><br><img src="https://raw.githubusercontent.com/mertaktasbusiness-afk/Webseiten/d0673677b8a29c06ed74de7fad4bf7c56a506ca3/gts-boeblingen/signatur.png" width="480" height="155" alt="Tuncay Eroglu | GTS Gebäudereinigung Böblingen | Telefon 0170 1601830 | info@gts-boeblingen.de" style="display:block;width:100%;max-width:480px;height:auto;border:0;"></div></div>
   </div>
 
   <div class="actions">
     <button class="primary" type="button" id="copy-rich">Signatur kopieren</button>
-    <button type="button" id="copy-text">Nur Text kopieren</button>
-    <a class="btn" href="https://raw.githubusercontent.com/mertaktasbusiness-afk/Webseiten/8d7ce708bdb8ad48aa384dfa555638444144c02f/gts-boeblingen/logo-signatur.png" target="_blank" rel="noopener">Logo öffnen</a>
+    <button type="button" id="copy-url">Bild-Adresse kopieren</button>
   </div>
   <div class="status" id="status" role="status" aria-live="polite"></div>
-  <p class="note">Die Signatur kommt ohne Tabellen aus, damit der Signatur-Editor keine Linien hinzufügt. Das Logo wird von einer festen Web-Adresse geladen und nicht eingebettet. Eingebettete Bilder entfernen viele Mailprogramme.</p>
 
-  <h2>So fügst du sie ein</h2>
-  <p class="note">Mach das am besten <strong>am Computer im Browser</strong>. Klick oben auf <strong>„Signatur kopieren“</strong>, lösch im Mailprogramm die alte Signatur komplett und füg die neue mit <kbd>Strg</kbd>+<kbd>V</kbd> ein (Mac: <kbd>⌘</kbd>+<kbd>V</kbd>).</p>
+  <h2>So geht's (am Computer)</h2>
+  <ol class="steps">
+    <li>Diese Datei am <strong>Computer in Chrome, Edge oder Safari</strong> öffnen.</li>
+    <li>Oben auf <strong>„Signatur kopieren“</strong> klicken.</li>
+    <li>Im Webmail des Kunden: <strong>Einstellungen → E-Mail → Signaturen</strong>. Die alte Signatur löschen und eine neue anlegen.</li>
+    <li>Ins leere Feld klicken, mit <kbd>Strg</kbd>+<kbd>V</kbd> einfügen (Mac: <kbd>⌘</kbd>+<kbd>V</kbd>) und speichern.</li>
+  </ol>
+  <p class="note">Falls der Button nicht reagiert: die Signatur oben mit der Maus markieren, mit <kbd>Strg</kbd>+<kbd>C</kbd> kopieren und dann einfügen.</p>
 
-  <details open>
-    <summary>IONOS oder Strato Webmail</summary>
+  <h2>Am iPhone</h2>
+  <ol class="steps">
+    <li>Auf das Signatur-Bild oben <strong>lange drücken → „Kopieren“</strong>.</li>
+    <li><strong>Einstellungen → Apps → Mail → Signatur</strong> öffnen.</li>
+    <li>Den alten Text löschen, „Mit freundlichen Grüßen“ tippen, darunter lange drücken und <strong>„Einsetzen“</strong> wählen.</li>
+  </ol>
+
+  <h2>Wenn der Editor ein Bild-Symbol hat</h2>
+  <p class="note">Viele Signatur-Editoren haben ein Bild-Symbol mit „Bild von URL“ oder „Bild-Link“. Dann einfach auf <strong>„Bild-Adresse kopieren“</strong> klicken und die Adresse dort einfügen.</p>
+
+  <details>
+    <summary>Andere Mailprogramme</summary>
     <ol>
-      <li>Webmail öffnen (mail.ionos.de bzw. webmail.strato.de) und anmelden.</li>
-      <li>Oben rechts auf das Zahnrad (Einstellungen) klicken.</li>
-      <li><strong>E-Mail → Signaturen</strong>, die alte Signatur löschen, dann <strong>Neue Signatur hinzufügen</strong>.</li>
-      <li>Namen vergeben (z. B. „GTS“), Signatur einfügen, speichern.</li>
-      <li>Als Standard für neue Nachrichten und Antworten auswählen.</li>
+      <li><strong>Outlook im Web:</strong> Zahnrad → Konten → Signaturen → Neue Signatur.</li>
+      <li><strong>Outlook am PC:</strong> Datei → Optionen → E-Mail → Signaturen… → Neu.</li>
+      <li><strong>Gmail:</strong> Zahnrad → Alle Einstellungen aufrufen → Allgemein → Signatur → Neu erstellen, unten „Änderungen speichern“.</li>
     </ol>
   </details>
-  <details>
-    <summary>Outlook im Web / Microsoft 365</summary>
-    <ol>
-      <li>outlook.office.com öffnen und anmelden.</li>
-      <li>Zahnrad oben rechts → <strong>Konten → Signaturen</strong>.</li>
-      <li><strong>Neue Signatur</strong>, Namen vergeben, Signatur einfügen.</li>
-      <li>Unten als Standard für neue Nachrichten und Antworten auswählen → <strong>Speichern</strong>.</li>
-    </ol>
-  </details>
-  <details>
-    <summary>Outlook am PC (Windows)</summary>
-    <ol>
-      <li><strong>Datei → Optionen → E-Mail → Signaturen…</strong></li>
-      <li><strong>Neu</strong> klicken, Namen vergeben.</li>
-      <li>Signatur ins Textfeld einfügen.</li>
-      <li>Rechts oben die Standardsignatur für neue Nachrichten und Antworten wählen → <strong>OK</strong>.</li>
-    </ol>
-  </details>
-  <details>
-    <summary>Gmail / Google Workspace</summary>
-    <ol>
-      <li>Zahnrad oben rechts → <strong>Alle Einstellungen aufrufen</strong>.</li>
-      <li>Tab <strong>Allgemein</strong> → Abschnitt <strong>Signatur</strong> → <strong>Neu erstellen</strong>.</li>
-      <li>Signatur einfügen, darunter als Standard auswählen.</li>
-      <li>Ganz unten <strong>Änderungen speichern</strong>.</li>
-    </ol>
-  </details>
-  <details>
-    <summary>iPhone Mail-App</summary>
-    <p>Das Signaturfeld auf dem iPhone (Einstellungen → Apps → Mail → Signatur) kann Logos und Farben nicht zuverlässig. Richte die Signatur lieber im Webmail am Computer ein. Auf dem iPhone kannst du die Nur-Text-Version nehmen.</p>
-  </details>
-
-  <h2>Nur-Text-Version</h2>
-  <p class="note">Für Programme, die keine formatierte Signatur können:</p>
-  <pre id="plain">Für Rückfragen stehe ich Ihnen jederzeit gerne zur Verfügung.
-
-Mit freundlichen Grüßen
-
-Tuncay Eroglu
-GTS Gebäudereinigung Böblingen
-
-Telefon: 0170 1601830
-E-Mail:  info@gts-boeblingen.de</pre>
 </main>
 
 <script>
   const sig = document.getElementById('signature');
-  const plain = document.getElementById('plain').textContent;
+  const img = sig.querySelector('img');
+  const plain = 'Für Rückfragen stehe ich Ihnen jederzeit gerne zur Verfügung.\n\nMit freundlichen Grüßen\n\n'
+    + 'Tuncay Eroglu\nGTS Gebäudereinigung Böblingen\nTelefon: 0170 1601830\nE-Mail: info@gts-boeblingen.de';
   const status = document.getElementById('status');
   let timer;
 
   function say(msg) {
     status.textContent = msg;
     clearTimeout(timer);
-    timer = setTimeout(() => { status.textContent = ''; }, 4000);
+    timer = setTimeout(() => { status.textContent = ''; }, 5000);
   }
 
   function copyBySelection(node) {
@@ -224,10 +186,9 @@ E-Mail:  info@gts-boeblingen.de</pre>
   }
 
   document.getElementById('copy-rich').addEventListener('click', async () => {
-    const html = sig.innerHTML;
     try {
       await navigator.clipboard.write([new ClipboardItem({
-        'text/html': new Blob([html], { type: 'text/html' }),
+        'text/html': new Blob([sig.innerHTML], { type: 'text/html' }),
         'text/plain': new Blob([plain], { type: 'text/plain' })
       })]);
       say('Signatur kopiert. Jetzt im Signaturfeld einfügen.');
@@ -238,9 +199,9 @@ E-Mail:  info@gts-boeblingen.de</pre>
     }
   });
 
-  document.getElementById('copy-text').addEventListener('click', async () => {
-    say(await copyText(plain)
-      ? 'Text kopiert.'
+  document.getElementById('copy-url').addEventListener('click', async () => {
+    say(await copyText(img.src)
+      ? 'Bild-Adresse kopiert.'
       : 'Kopieren hat nicht geklappt.');
   });
 </script>
