@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GTS E-Mail-Signatur</title>
+<style>
+  :root {
+    --bg: #f3f5f8;
+    --surface: #ffffff;
+    --text: #1d2733;
+    --muted: #5b6776;
+    --border: #dde3ea;
+    --brand: #0b3a5b;
+    --accent: #0b7f8a;
+    --btn-text: #ffffff;
+    --ok: #0f7a3d;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #10161d;
+      --surface: #18212b;
+      --text: #e6ebf1;
+      --muted: #9aa7b6;
+      --border: #2a3643;
+      --brand: #7cc4e8;
+      --accent: #4fd1dc;
+      --btn-text: #0b1620;
+      --ok: #5fd08f;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #10161d;
+    --surface: #18212b;
+    --text: #e6ebf1;
+    --muted: #9aa7b6;
+    --border: #2a3643;
+    --brand: #7cc4e8;
+    --accent: #4fd1dc;
+    --btn-text: #0b1620;
+    --ok: #5fd08f;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 15px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  }
+  main { max-width: 760px; margin: 0 auto; padding: 32px 16px 56px; }
+  h1 { font-size: 22px; margin: 0 0 4px; color: var(--brand); }
+  .lead { margin: 0 0 24px; color: var(--muted); }
+  h2 { font-size: 16px; margin: 32px 0 10px; }
+
+  /* Signature preview always sits on white, like an email */
+  .mail {
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px 20px;
+    overflow-x: auto;
+    box-shadow: 0 1px 2px rgba(0,0,0,.04), 0 8px 24px rgba(11,58,91,.06);
+  }
+
+  .actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0 6px; }
+  button {
+    font: inherit;
+    font-weight: 600;
+    border-radius: 8px;
+    padding: 10px 16px;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+  }
+  button.primary { background: var(--brand); border-color: var(--brand); color: var(--btn-text); }
+  button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  .status { min-height: 22px; font-size: 14px; color: var(--ok); }
+
+  details {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin: 0 0 8px;
+  }
+  summary { cursor: pointer; padding: 12px 14px; font-weight: 600; }
+  details ol { margin: 0; padding: 0 14px 14px 36px; }
+  details li { margin: 2px 0; }
+  kbd {
+    font: 12px ui-monospace, SFMono-Regular, Menlo, monospace;
+    border: 1px solid var(--border);
+    border-bottom-width: 2px;
+    border-radius: 4px;
+    padding: 1px 5px;
+    background: var(--bg);
+  }
+  pre {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px;
+    white-space: pre-wrap;
+    font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+    margin: 0;
+  }
+  .note { color: var(--muted); font-size: 14px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>E-Mail-Signatur</h1>
+  <p class="lead">GTS Gebäudereinigung Böblingen, Tuncay Eroglu</p>
+
+  <div class="mail">
+    <div id="signature"><table cellpadding="0" cellspacing="0" border="0" role="presentation" style="border-collapse:collapse;font-family:Arial,Helvetica,sans-serif;">
+  <tr>
+    <td style="padding:0 0 18px 0;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:22px;color:#2b3440;">Für Rückfragen stehe ich Ihnen jederzeit gerne zur Verfügung.<br><br>Mit freundlichen Grüßen</td>
+  </tr>
+  <tr>
+    <td style="padding:0;">
+      <table cellpadding="0" cellspacing="0" border="0" role="presentation" style="border-collapse:collapse;">
+        <tr>
+          <td valign="top" style="padding:0 18px 0 0;vertical-align:top;">
+            <table cellpadding="0" cellspacing="0" border="0" role="presentation" style="border-collapse:collapse;">
+              <tr>
+                <td width="84" height="84" align="center" valign="middle" bgcolor="#0b3a5b" style="width:84px;height:84px;background-color:#0b3a5b;border-radius:8px;text-align:center;vertical-align:middle;">
+                  <table cellpadding="0" cellspacing="0" border="0" role="presentation" align="center" style="border-collapse:collapse;margin:0 auto;">
+                    <tr>
+                      <td align="center" style="padding:0 0 0 3px;font-family:Arial,Helvetica,sans-serif;font-size:26px;line-height:28px;font-weight:bold;letter-spacing:3px;color:#ffffff;">GTS</td>
+                    </tr>
+                    <tr>
+                      <td align="center" style="padding:6px 0 0 0;">
+                        <table cellpadding="0" cellspacing="0" border="0" role="presentation" align="center" style="border-collapse:collapse;margin:0 auto;">
+                          <tr><td width="30" height="3" bgcolor="#19b5c2" style="width:30px;height:3px;line-height:3px;font-size:0;background-color:#19b5c2;">&nbsp;</td></tr>
+                        </table>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td align="center" style="padding:6px 0 0 1px;font-family:Arial,Helvetica,sans-serif;font-size:8px;line-height:10px;font-weight:bold;letter-spacing:1.5px;color:#bfe9ee;">BÖBLINGEN</td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+          <td valign="top" style="padding:0 0 0 18px;border-left:2px solid #19b5c2;vertical-align:top;">
+            <table cellpadding="0" cellspacing="0" border="0" role="presentation" style="border-collapse:collapse;">
+              <tr>
+                <td colspan="2" style="padding:2px 0 3px 0;font-family:Arial,Helvetica,sans-serif;font-size:18px;line-height:22px;font-weight:bold;color:#0b3a5b;">Tuncay Eroglu</td>
+              </tr>
+              <tr>
+                <td colspan="2" style="padding:0 0 12px 0;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:18px;font-weight:bold;color:#0b7f8a;">GTS Gebäudereinigung Böblingen</td>
+              </tr>
+              <tr>
+                <td style="padding:0 10px 2px 0;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:20px;font-weight:bold;color:#0b7f8a;white-space:nowrap;">Telefon</td>
+                <td style="padding:0 0 2px 0;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:20px;color:#2b3440;white-space:nowrap;"><a href="tel:+491701601830" style="color:#2b3440;text-decoration:none;">0170 1601830</a></td>
+              </tr>
+              <tr>
+                <td style="padding:0 10px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:20px;font-weight:bold;color:#0b7f8a;white-space:nowrap;">E-Mail</td>
+                <td style="padding:0;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:20px;color:#2b3440;white-space:nowrap;"><a href="mailto:info@gts-boeblingen.de" style="color:#2b3440;text-decoration:none;">info@gts-boeblingen.de</a></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td style="padding:16px 0 0 0;">
+      <table cellpadding="0" cellspacing="0" border="0" role="presentation" width="100%" style="border-collapse:collapse;width:100%;">
+        <tr>
+          <td width="84" height="3" bgcolor="#0b3a5b" style="width:84px;height:3px;line-height:3px;font-size:0;background-color:#0b3a5b;">&nbsp;</td>
+          <td height="3" bgcolor="#19b5c2" style="height:3px;line-height:3px;font-size:0;background-color:#19b5c2;">&nbsp;</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table></div>
+  </div>
+
+  <div class="actions">
+    <button class="primary" type="button" id="copy-rich">Signatur kopieren</button>
+    <button type="button" id="copy-html">HTML-Code kopieren</button>
+    <button type="button" id="copy-text">Nur Text kopieren</button>
+  </div>
+  <div class="status" id="status" role="status" aria-live="polite"></div>
+  <p class="note">Das Logo besteht aus HTML statt aus einem Bild. Es muss deshalb nirgends hochgeladen werden und wird auch nicht blockiert, wenn das Mailprogramm Bilder ausblendet.</p>
+
+  <h2>So fügst du sie ein</h2>
+  <p class="note">Klick oben auf <strong>„Signatur kopieren“</strong> und füg sie dann im Signaturfeld mit <kbd>Strg</kbd>+<kbd>V</kbd> ein (Mac: <kbd>⌘</kbd>+<kbd>V</kbd>).</p>
+
+  <details open>
+    <summary>IONOS oder Strato Webmail</summary>
+    <ol>
+      <li>Webmail öffnen (mail.ionos.de bzw. webmail.strato.de) und anmelden.</li>
+      <li>Oben rechts auf das Zahnrad (Einstellungen) klicken.</li>
+      <li><strong>E-Mail → Signaturen → Neue Signatur hinzufügen</strong>.</li>
+      <li>Namen vergeben (z. B. „GTS“), Signatur einfügen, speichern.</li>
+      <li>Als Standard für neue Nachrichten und Antworten auswählen.</li>
+    </ol>
+  </details>
+  <details>
+    <summary>Outlook im Web / Microsoft 365</summary>
+    <ol>
+      <li>outlook.office.com öffnen und anmelden.</li>
+      <li>Zahnrad oben rechts → <strong>Konten → Signaturen</strong>.</li>
+      <li><strong>Neue Signatur</strong>, Namen vergeben, Signatur einfügen.</li>
+      <li>Unten als Standard für neue Nachrichten und Antworten auswählen → <strong>Speichern</strong>.</li>
+    </ol>
+  </details>
+  <details>
+    <summary>Outlook am PC (Windows)</summary>
+    <ol>
+      <li><strong>Datei → Optionen → E-Mail → Signaturen…</strong></li>
+      <li><strong>Neu</strong> klicken, Namen vergeben.</li>
+      <li>Signatur ins Textfeld einfügen.</li>
+      <li>Rechts oben die Standardsignatur für neue Nachrichten und Antworten wählen → <strong>OK</strong>.</li>
+    </ol>
+  </details>
+  <details>
+    <summary>Gmail / Google Workspace</summary>
+    <ol>
+      <li>Zahnrad oben rechts → <strong>Alle Einstellungen aufrufen</strong>.</li>
+      <li>Tab <strong>Allgemein</strong> → Abschnitt <strong>Signatur</strong> → <strong>Neu erstellen</strong>.</li>
+      <li>Signatur einfügen und darunter als Standard auswählen.</li>
+      <li>Ganz unten auf <strong>Änderungen speichern</strong> klicken.</li>
+    </ol>
+  </details>
+
+  <h2>Nur-Text-Version</h2>
+  <p class="note">Für Programme, die keine formatierte Signatur können:</p>
+  <pre id="plain">Für Rückfragen stehe ich Ihnen jederzeit gerne zur Verfügung.
+
+Mit freundlichen Grüßen
+
+Tuncay Eroglu
+GTS Gebäudereinigung Böblingen
+
+Telefon: 0170 1601830
+E-Mail:  info@gts-boeblingen.de</pre>
+</main>
+
+<script>
+  const sig = document.getElementById('signature');
+  const plain = document.getElementById('plain').textContent;
+  const status = document.getElementById('status');
+  let timer;
+
+  function say(msg) {
+    status.textContent = msg;
+    clearTimeout(timer);
+    timer = setTimeout(() => { status.textContent = ''; }, 4000);
+  }
+
+  function copyBySelection(node) {
+    const range = document.createRange();
+    range.selectNodeContents(node);
+    const sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+    const ok = document.execCommand('copy');
+    sel.removeAllRanges();
+    return ok;
+  }
+
+  async function copyText(text) {
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch (e) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      const ok = document.execCommand('copy');
+      ta.remove();
+      return ok;
+    }
+  }
+
+  document.getElementById('copy-rich').addEventListener('click', async () => {
+    const html = sig.innerHTML;
+    try {
+      await navigator.clipboard.write([new ClipboardItem({
+        'text/html': new Blob([html], { type: 'text/html' }),
+        'text/plain': new Blob([plain], { type: 'text/plain' })
+      })]);
+      say('Signatur kopiert. Jetzt im Signaturfeld einfügen.');
+    } catch (e) {
+      say(copyBySelection(sig)
+        ? 'Signatur kopiert. Jetzt im Signaturfeld einfügen.'
+        : 'Kopieren hat nicht geklappt. Markiere die Signatur mit der Maus und kopiere sie.');
+    }
+  });
+
+  document.getElementById('copy-html').addEventListener('click', async () => {
+    say(await copyText(sig.innerHTML.trim())
+      ? 'HTML-Code kopiert.'
+      : 'Kopieren hat nicht geklappt.');
+  });
+
+  document.getElementById('copy-text').addEventListener('click', async () => {
+    say(await copyText(plain)
+      ? 'Text kopiert.'
+      : 'Kopieren hat nicht geklappt.');
+  });
+</script>
+</body>
+</html>
