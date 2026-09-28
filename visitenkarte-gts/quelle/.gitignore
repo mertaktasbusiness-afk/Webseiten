@@ -10,3 +10,6 @@ front_bg*.png
 back_bg*.png
 front_geom.json
 __pycache__/
+flyer.svg
+flyer_rgb.pdf
+flyer_cmyk_raw.pdf
