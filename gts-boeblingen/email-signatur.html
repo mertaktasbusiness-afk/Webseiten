@@ -105,12 +105,11 @@
   <p class="lead">GTS Gebäudereinigung Böblingen, Tuncay Eroglu</p>
 
   <div class="mail">
-    <div id="signature"><div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:22px;color:#222222;">Für Rückfragen stehe ich Ihnen jederzeit gerne zur Verfügung.<br><br>Mit freundlichen Grüßen<br><br><img src="https://raw.githubusercontent.com/mertaktasbusiness-afk/Webseiten/d0673677b8a29c06ed74de7fad4bf7c56a506ca3/gts-boeblingen/signatur.png" width="480" height="155" alt="Tuncay Eroglu | GTS Gebäudereinigung Böblingen | Telefon 0170 1601830 | info@gts-boeblingen.de" style="display:block;width:100%;max-width:480px;height:auto;border:0;"></div></div>
+    <div id="signature"><div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:22px;color:#222222;">Für Rückfragen stehe ich Ihnen jederzeit gerne zur Verfügung.<br><br>Mit freundlichen Grüßen<br><br><img src="https://raw.githubusercontent.com/mertaktasbusiness-afk/Webseiten/a5df513204a20706a8c6be5f7594e8408e8af724/gts-boeblingen/signatur-kopf.png" width="480" height="82" alt="Tuncay Eroglu | GTS Gebäudereinigung Böblingen" style="display:block;width:100%;max-width:480px;height:auto;border:0;"><div style="margin:12px 0 0 0;"><img src="https://raw.githubusercontent.com/mertaktasbusiness-afk/Webseiten/a5df513204a20706a8c6be5f7594e8408e8af724/gts-boeblingen/icon-telefon.png" width="18" height="18" alt="Telefon:" style="vertical-align:middle;border:0;">&nbsp;&nbsp;<a href="tel:+491701601830" style="color:#222222;text-decoration:none;vertical-align:middle;">0170 1601830</a></div><div style="margin:8px 0 0 0;"><img src="https://raw.githubusercontent.com/mertaktasbusiness-afk/Webseiten/a5df513204a20706a8c6be5f7594e8408e8af724/gts-boeblingen/icon-email.png" width="18" height="18" alt="E-Mail:" style="vertical-align:middle;border:0;">&nbsp;&nbsp;<a href="mailto:info@gts-boeblingen.de" style="color:#222222;text-decoration:none;vertical-align:middle;">info@gts-boeblingen.de</a></div></div></div>
   </div>
 
   <div class="actions">
     <button class="primary" type="button" id="copy-rich">Signatur kopieren</button>
-    <button type="button" id="copy-url">Bild-Adresse kopieren</button>
   </div>
   <div class="status" id="status" role="status" aria-live="polite"></div>
 
@@ -125,13 +124,11 @@
 
   <h2>Am iPhone</h2>
   <ol class="steps">
-    <li>Auf das Signatur-Bild oben <strong>lange drücken → „Kopieren“</strong>.</li>
+    <li>Diese Datei in <strong>Safari</strong> öffnen und auf <strong>„Signatur kopieren“</strong> tippen.</li>
     <li><strong>Einstellungen → Apps → Mail → Signatur</strong> öffnen.</li>
-    <li>Den alten Text löschen, „Mit freundlichen Grüßen“ tippen, darunter lange drücken und <strong>„Einsetzen“</strong> wählen.</li>
+    <li>Den alten Text löschen, ins leere Feld lange drücken und <strong>„Einsetzen“</strong> wählen.</li>
   </ol>
-
-  <h2>Wenn der Editor ein Bild-Symbol hat</h2>
-  <p class="note">Viele Signatur-Editoren haben ein Bild-Symbol mit „Bild von URL“ oder „Bild-Link“. Dann einfach auf <strong>„Bild-Adresse kopieren“</strong> klicken und die Adresse dort einfügen.</p>
+  <p class="note">Telefon und E-Mail sind echter Text. Sie sind in jeder Mail anklickbar, auch wenn das Mailprogramm Farben oder Bilder weglässt.</p>
 
   <details>
     <summary>Andere Mailprogramme</summary>
@@ -145,7 +142,6 @@
 
 <script>
   const sig = document.getElementById('signature');
-  const img = sig.querySelector('img');
   const plain = 'Für Rückfragen stehe ich Ihnen jederzeit gerne zur Verfügung.\n\nMit freundlichen Grüßen\n\n'
     + 'Tuncay Eroglu\nGTS Gebäudereinigung Böblingen\nTelefon: 0170 1601830\nE-Mail: info@gts-boeblingen.de';
   const status = document.getElementById('status');
@@ -168,23 +164,6 @@
     return ok;
   }
 
-  async function copyText(text) {
-    try {
-      await navigator.clipboard.writeText(text);
-      return true;
-    } catch (e) {
-      const ta = document.createElement('textarea');
-      ta.value = text;
-      ta.style.position = 'fixed';
-      ta.style.opacity = '0';
-      document.body.appendChild(ta);
-      ta.select();
-      const ok = document.execCommand('copy');
-      ta.remove();
-      return ok;
-    }
-  }
-
   document.getElementById('copy-rich').addEventListener('click', async () => {
     try {
       await navigator.clipboard.write([new ClipboardItem({
@@ -197,13 +176,6 @@
         ? 'Signatur kopiert. Jetzt im Signaturfeld einfügen.'
         : 'Kopieren hat nicht geklappt. Markiere die Signatur mit der Maus und kopiere sie.');
     }
-  });
-
-  document.getElementById('copy-url').addEventListener('click', async () => {
-    say(await copyText(img.src)
-      ? 'Bild-Adresse kopiert.'
-      : 'Kopieren hat nicht geklappt.');
-  });
-</script>
+  });</script>
 </body>
 </html>
