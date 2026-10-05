@@ -53,10 +53,10 @@ def autumn_badge(cx, cy, R):
     return ''.join(o)
 
 
-def qr_code(x, y, size, url='https://www.gts-boeblingen.de'):
+def qr_code(x, y, size, url='https://www.gts-boeblingen.de', ecc='Q'):
     """Weißes Feld mit Goldrand + QR-Code (Fehlerkorrektur Q, 2 Module Ruhezone)."""
     import qrcode
-    q = qrcode.QRCode(error_correction=qrcode.constants.ERROR_CORRECT_Q, border=0)
+    q = qrcode.QRCode(error_correction=getattr(qrcode.constants, 'ERROR_CORRECT_' + ecc), border=0)
     q.add_data(url)
     q.make(fit=True)
     m = q.get_matrix()

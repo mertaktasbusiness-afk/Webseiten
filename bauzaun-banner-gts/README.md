@@ -13,3 +13,11 @@
 
 Bei der Bestellung angeben: **Mesh-Plane** (winddurchlässig, empfohlen für Bauzäune),
 **Saum rundum mit Ösen alle ca. 50 cm**, einseitig bedruckt.
+
+## Entwurf 2 (separate Datei)
+
+![Entwurf 2](Vorschau_Bauzaunbanner_Entwurf2.png)
+
+`GTS_Bauzaunbanner_Entwurf2_340x173cm.pdf` – gleiche technische Daten wie oben.
+Heller und ruhiger: großes Logo, Claim „Gebäude in besten Händen.“, durchgehende Kontaktleiste mit
+großer Telefonnummer, QR-Code 48 × 48 cm mit höchster Fehlerkorrektur (H, 30 %) für die Mesh-Plane.
