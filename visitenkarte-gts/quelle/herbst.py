@@ -53,6 +53,32 @@ def autumn_badge(cx, cy, R):
     return ''.join(o)
 
 
+def qr_code(x, y, size, url='https://www.gts-boeblingen.de'):
+    """Weißes Feld mit Goldrand + QR-Code (Fehlerkorrektur Q, 2 Module Ruhezone)."""
+    import qrcode
+    q = qrcode.QRCode(error_correction=qrcode.constants.ERROR_CORRECT_Q, border=0)
+    q.add_data(url)
+    q.make(fit=True)
+    m = q.get_matrix()
+    n = len(m)
+    mod = size / (n + 4)
+    x0, y0 = x + 2 * mod, y + 2 * mod
+    d = []
+    for r in range(n):
+        c = 0
+        while c < n:
+            if m[r][c]:
+                c2 = c
+                while c2 < n and m[r][c2]:
+                    c2 += 1
+                d.append(f'M{x0 + c * mod:.4f},{y0 + r * mod:.4f}h{(c2 - c) * mod:.4f}v{mod:.4f}h{-(c2 - c) * mod:.4f}z')
+                c = c2
+            else:
+                c += 1
+    return (f'<rect x="{x}" y="{y}" width="{size}" height="{size}" rx="1" fill="#FFFFFF" stroke="{C_GOLD_LT}" '
+            f'stroke-width="0.35"/><path d="{"".join(d)}" fill="#000000"/>')
+
+
 def herbst_svg():
     o = [f'<rect x="-3" y="-3" width="{W + 6}" height="{H + 6}" fill="{C_CREAM}"/>']
     img, x, y, w, h = hero_image()
@@ -149,11 +175,12 @@ def herbst_svg():
         o.append(globe(12.2, yy - 0.85, 1.2, C_GOLD_LT) if k == 'globe' else filled_icon(k, 12.2, yy - 0.85, 2.9, C_GOLD_LT))
         o.append(t(txt, 1.75, 16.6, yy, C_WHITE))
     o.append(f'<path d="M68.5,271.5 V292.5" stroke="{C_GOLD_LT}" stroke-width="0.25"/>')
-    o.append(leaf(81, 281.5, 11, -25, C_COPPER))
+    o.append(leaf(76.5, 281.5, 9, -25, C_COPPER))
     q = [('Herbsttermine sind', C_WHITE), ('schnell vergeben.', C_WHITE), ('Sichern Sie sich jetzt', C_GOLD_LT),
          ('Ihren Wunschtermin.', C_GOLD_LT)]
     for i, (ln, col) in enumerate(q):
-        o.append(t(ln, 2.05, 92.0, 277.2 + i * 4.3, col, skew=-11))
+        o.append(t(ln, 2.05, 84.0, 277.2 + i * 4.3, col, skew=-11))
+    o.append(qr_code(123.5, 271.0, 21.0))
     o.append(t('JETZT HERBSTTERMIN', 2.45, 156.0, 275.0, C_DARK, 'serif_logo', tr=0.2))
     o.append(t('SICHERN.', 2.45, 156.0, 279.1, C_DARK, 'serif_logo', tr=0.2))
     o.append(t('Rufen Sie an oder schreiben Sie uns –', 1.4, 156.0, 283.2, C_TEXT))
@@ -189,6 +216,12 @@ if __name__ == '__main__':
     p = pymupdf.open(pdf)[0]
     assert not p.get_fonts()
     p.get_pixmap(dpi=150, clip=p.trimbox).save(os.path.join(OUT, 'Vorschau_Herbst-Flyer_A4.png'))
+    import cv2
+    pix = p.get_pixmap(dpi=200, clip=p.trimbox)
+    img = np.frombuffer(pix.samples, np.uint8).reshape(pix.h, pix.w, pix.n)[..., :3]
+    val, _, _ = cv2.QRCodeDetector().detectAndDecode(cv2.cvtColor(img, cv2.COLOR_RGB2BGR))
+    print('QR ->', repr(val))
+    assert val == 'https://www.gts-boeblingen.de'
     cm = p.get_pixmap(dpi=100, colorspace=pymupdf.csCMYK)
     a = np.frombuffer(cm.samples, np.uint8).reshape(cm.h, cm.w, cm.n)[..., :4].astype(float) / 2.55
     print('Trim mm', round(p.trimbox.width / MM, 1), round(p.trimbox.height / MM, 1), '| max ink %.0f%%' % a.sum(2).max())
