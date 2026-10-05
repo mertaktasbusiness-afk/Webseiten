@@ -103,6 +103,14 @@
   .copy:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
   .status { min-height: 22px; font-size: 14px; color: var(--ok); margin-top: 6px; }
   .note { color: var(--muted); font-size: 14px; margin: 10px 0 0; }
+  kbd {
+    font: 12px ui-monospace, SFMono-Regular, Menlo, monospace;
+    border: 1px solid var(--border);
+    border-bottom-width: 2px;
+    border-radius: 4px;
+    padding: 1px 5px;
+    background: var(--bg);
+  }
 </style>
 </head>
 <body>
@@ -185,9 +193,13 @@ Web: www.gts-boeblingen.de</pre>
       <ol>
         <li><strong>icloud.com/mail</strong> öffnen und anmelden.</li>
         <li>Oben in der Postfachliste auf das <strong>Zahnrad</strong> klicken → <strong>Einstellungen</strong>.</li>
-        <li>Links <strong>„Verfassen“</strong> wählen, nach unten scrollen und <strong>„Signatur hinzufügen“</strong> anhaken.</li>
-        <li>Ins Feld klicken, einfügen und <strong>Fertig</strong> klicken.</li>
+        <li>Links <strong>„Verfassen“</strong> wählen und nach unten scrollen.</li>
+        <li>Den <strong>Haken bei „Signatur hinzufügen“</strong> setzen. Ohne Haken wird die Signatur nie eingefügt, auch wenn Text im Feld steht.</li>
+        <li>Ins Feld klicken, den alten Inhalt löschen und einfügen.</li>
+        <li>Einen Speichern-Button gibt es nicht, iCloud speichert automatisch. Einfach das Einstellungsfenster schließen.</li>
+        <li>Die Seite <strong>neu laden</strong> (<kbd>F5</kbd>, am Mac <kbd>⌘</kbd>+<kbd>R</kbd>) und dann eine <strong>neue</strong> E-Mail öffnen. Die Signatur steht unten.</li>
       </ol>
+      <p class="note">Diese Signatur gilt nur für Mails, die auf icloud.com im Browser geschrieben werden. Für Mails vom iPhone oder Mac muss sie dort extra eingerichtet werden (Tabs oben).</p>
     </div>
   </section>
 </main>
