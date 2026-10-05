@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GTS iCloud-Signatur</title>
+<style>
+  :root {
+    --bg: #f5f3ef;
+    --surface: #ffffff;
+    --text: #1c1b19;
+    --muted: #625d55;
+    --border: #e2ddd4;
+    --brand: #111111;
+    --accent: #8a6d3b;
+    --gold: #c9a76b;
+    --btn-text: #ffffff;
+    --ok: #2f6b3a;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #141312;
+      --surface: #1e1d1b;
+      --text: #ece8e1;
+      --muted: #a8a196;
+      --border: #34312d;
+      --brand: #d9b77a;
+      --accent: #d9b77a;
+      --btn-text: #141312;
+      --ok: #7fcf8f;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #141312;
+    --surface: #1e1d1b;
+    --text: #ece8e1;
+    --muted: #a8a196;
+    --border: #34312d;
+    --brand: #d9b77a;
+    --accent: #d9b77a;
+    --btn-text: #141312;
+    --ok: #7fcf8f;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 15px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  }
+  main { max-width: 720px; margin: 0 auto; padding: 32px 16px 56px; }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  .lead { margin: 0 0 20px; color: var(--muted); }
+
+  .tabs { display: flex; gap: 6px; margin: 0 0 16px; flex-wrap: wrap; }
+  .tab {
+    font: inherit; font-weight: 600; font-size: 14px;
+    padding: 8px 14px; border-radius: 999px; cursor: pointer;
+    border: 1px solid var(--border); background: var(--surface); color: var(--text);
+  }
+  .tab[aria-selected="true"] { background: var(--brand); border-color: var(--brand); color: var(--btn-text); }
+  .tab:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  [role="tabpanel"][hidden] { display: none; }
+
+  /* Signature preview always sits on white, like an email */
+  .mail {
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 22px 20px;
+    box-shadow: 0 1px 2px rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.05);
+  }
+  .mail pre {
+    margin: 0;
+    white-space: pre-wrap;
+    font: 14px/22px -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #222222;
+  }
+
+  .step {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 18px 16px;
+    margin-top: 16px;
+  }
+  .step h2 { display: flex; align-items: center; gap: 10px; font-size: 17px; margin: 0 0 12px; }
+  .num {
+    flex: none;
+    width: 28px; height: 28px; border-radius: 50%;
+    display: grid; place-items: center;
+    background: var(--gold); color: #111111;
+    font-size: 15px; font-weight: 700;
+  }
+  .step ol { margin: 12px 0 0; padding-left: 22px; }
+  .step li { margin: 5px 0; }
+
+  .copy {
+    font: inherit; font-size: 16px; font-weight: 600;
+    border-radius: 8px; padding: 12px 18px; cursor: pointer;
+    border: 1px solid var(--brand); background: var(--brand); color: var(--btn-text);
+  }
+  .copy:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  .status { min-height: 22px; font-size: 14px; color: var(--ok); margin-top: 6px; }
+  .note { color: var(--muted); font-size: 14px; margin: 10px 0 0; }
+</style>
+</head>
+<body>
+<main>
+  <h1>iCloud-Mail-Signatur</h1>
+  <p class="lead">GTS Gebäudereinigung Böblingen, Tuncay Eroglu. Wähle aus, wo du die Signatur einrichtest:</p>
+
+  <div class="tabs" role="tablist" aria-label="Gerät">
+    <button class="tab" role="tab" id="tab-iphone" aria-controls="p-iphone" aria-selected="true">iPhone</button>
+    <button class="tab" role="tab" id="tab-mac" aria-controls="p-mac" aria-selected="false" tabindex="-1">Mac</button>
+    <button class="tab" role="tab" id="tab-web" aria-controls="p-web" aria-selected="false" tabindex="-1">iCloud.com im Browser</button>
+  </div>
+
+  <!-- Rich signature: the same text + logo layout that survives the IONOS editor -->
+  <div class="mail" id="rich-preview">
+    <div id="signature"><div style="font-family:-apple-system,'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:14px;line-height:22px;color:#222222;">Für Rückfragen stehe ich Ihnen jederzeit gerne zur Verfügung.<br><br>Mit freundlichen Grüßen<br><br><b style="font-size:16px;color:#111111;">Tuncay Eroglu</b><br><span style="color:#8a6d3b;">GTS Gebäudereinigung Böblingen</span><br><br><b style="color:#8a6d3b;">Telefon:</b> <a href="tel:+491701601830" style="color:#222222;">0170 1601830</a><br><b style="color:#8a6d3b;">E-Mail:</b> <a href="mailto:info@gts-boeblingen.de" style="color:#222222;">info@gts-boeblingen.de</a><br><b style="color:#8a6d3b;">Web:</b> <a href="https://www.gts-boeblingen.de" style="color:#222222;">www.gts-boeblingen.de</a><br><br><img src="https://raw.githubusercontent.com/mertaktasbusiness-afk/Webseiten/fd18650df413c39b9e1cef9d3456a614cc0230a1/gts-boeblingen/gts-logo-signatur@2x.png" width="300" height="135" alt="GTS – Gebäude · Technik · Service" style="display:block;width:300px;height:135px;border:0;"></div></div>
+  </div>
+
+  <!-- Text-only signature for iCloud.com, which accepts plain text only -->
+  <div class="mail" id="plain-preview" hidden>
+    <pre id="plain">Für Rückfragen stehe ich Ihnen jederzeit gerne zur Verfügung.
+
+Mit freundlichen Grüßen
+
+Tuncay Eroglu
+GTS Gebäudereinigung Böblingen
+Gebäude · Technik · Service
+──────────────────────
+Telefon: 0170 1601830
+E-Mail: info@gts-boeblingen.de
+Web: www.gts-boeblingen.de</pre>
+  </div>
+
+  <section role="tabpanel" id="p-iphone" aria-labelledby="tab-iphone">
+    <div class="step">
+      <h2><span class="num">1</span> Kopieren</h2>
+      <button class="copy" type="button" data-copy="rich">Signatur kopieren</button>
+      <div class="status" role="status" aria-live="polite"></div>
+      <p class="note">Klappt der Button nicht: Öffne die Datei in Safari und tippe dort darauf.</p>
+    </div>
+    <div class="step">
+      <h2><span class="num">2</span> Einfügen</h2>
+      <ol>
+        <li><strong>Einstellungen → Apps → Mail → Signatur</strong> öffnen (bei älterem iOS: Einstellungen → Mail → Signatur).</li>
+        <li><strong>„Pro Account“</strong> wählen und beim iCloud-Konto den alten Text komplett löschen.</li>
+        <li>Ins leere Feld lange drücken → <strong>„Einsetzen“</strong>.</li>
+        <li>Wenn danach Logo oder Fettschrift fehlen: das <strong>iPhone kurz schütteln</strong> und <strong>„Widerrufen“</strong> tippen. Dann kommt die Formatierung zurück.</li>
+      </ol>
+      <p class="note">Den Schritt mit dem Schütteln kennen viele nicht: Das iPhone entfernt beim Einsetzen die Formatierung, und das Widerrufen holt sie zurück.</p>
+    </div>
+  </section>
+
+  <section role="tabpanel" id="p-mac" aria-labelledby="tab-mac" hidden>
+    <div class="step">
+      <h2><span class="num">1</span> Kopieren</h2>
+      <button class="copy" type="button" data-copy="rich">Signatur kopieren</button>
+      <div class="status" role="status" aria-live="polite"></div>
+    </div>
+    <div class="step">
+      <h2><span class="num">2</span> Einfügen</h2>
+      <ol>
+        <li>In der Mail-App oben: <strong>Mail → Einstellungen → Signaturen</strong>.</li>
+        <li>Links das <strong>iCloud-Konto</strong> anklicken, dann unten auf <strong>+</strong>. Namen vergeben, z. B. „GTS“.</li>
+        <li>Den Haken bei <strong>„Immer meine Standardschrift verwenden“</strong> entfernen.</li>
+        <li>Rechts ins Feld klicken, den Beispieltext löschen und mit <strong>⌘ + V</strong> einfügen.</li>
+        <li>Unten bei <strong>„Signatur auswählen“</strong> die neue Signatur wählen und das Fenster schließen.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section role="tabpanel" id="p-web" aria-labelledby="tab-web" hidden>
+    <div class="step">
+      <h2><span class="num">1</span> Kopieren</h2>
+      <button class="copy" type="button" data-copy="plain">Text kopieren</button>
+      <div class="status" role="status" aria-live="polite"></div>
+      <p class="note">iCloud.com kann bei Signaturen nur reinen Text, also kein Logo und keine Farben. Telefon, E-Mail und Webseite werden beim Empfänger trotzdem meist automatisch anklickbar.</p>
+    </div>
+    <div class="step">
+      <h2><span class="num">2</span> Einfügen</h2>
+      <ol>
+        <li><strong>icloud.com/mail</strong> öffnen und anmelden.</li>
+        <li>Oben in der Postfachliste auf das <strong>Zahnrad</strong> klicken → <strong>Einstellungen</strong>.</li>
+        <li>Links <strong>„Verfassen“</strong> wählen, nach unten scrollen und <strong>„Signatur hinzufügen“</strong> anhaken.</li>
+        <li>Ins Feld klicken, einfügen und <strong>Fertig</strong> klicken.</li>
+      </ol>
+    </div>
+  </section>
+</main>
+
+<script>
+  const sig = document.getElementById('signature');
+  const plain = document.getElementById('plain').textContent;
+  const richPreview = document.getElementById('rich-preview');
+  const plainPreview = document.getElementById('plain-preview');
+  const tabs = [...document.querySelectorAll('[role="tab"]')];
+
+  function select(tab) {
+    tabs.forEach(t => {
+      const on = t === tab;
+      t.setAttribute('aria-selected', on);
+      t.tabIndex = on ? 0 : -1;
+      document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+    });
+    const web = tab.id === 'tab-web';
+    richPreview.hidden = web;
+    plainPreview.hidden = !web;
+  }
+
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => select(t));
+    t.addEventListener('keydown', e => {
+      const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (!d) return;
+      const next = tabs[(i + d + tabs.length) % tabs.length];
+      select(next);
+      next.focus();
+    });
+  });
+
+  function copyBySelection(node) {
+    const range = document.createRange();
+    range.selectNodeContents(node);
+    const sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+    const ok = document.execCommand('copy');
+    sel.removeAllRanges();
+    return ok;
+  }
+
+  async function copyRich() {
+    try {
+      await navigator.clipboard.write([new ClipboardItem({
+        'text/html': new Blob([sig.innerHTML], { type: 'text/html' }),
+        'text/plain': new Blob([plain], { type: 'text/plain' })
+      })]);
+      return true;
+    } catch (e) {
+      return copyBySelection(sig);
+    }
+  }
+
+  async function copyPlain() {
+    try {
+      await navigator.clipboard.writeText(plain);
+      return true;
+    } catch (e) {
+      return copyBySelection(document.getElementById('plain'));
+    }
+  }
+
+  document.querySelectorAll('[data-copy]').forEach(btn => {
+    const status = btn.nextElementSibling;
+    let timer;
+    btn.addEventListener('click', async () => {
+      const ok = btn.dataset.copy === 'rich' ? await copyRich() : await copyPlain();
+      status.textContent = ok
+        ? 'Kopiert. Jetzt im Signaturfeld einfügen.'
+        : 'Kopieren hat nicht geklappt. Markiere die Signatur oben und kopiere sie.';
+      clearTimeout(timer);
+      timer = setTimeout(() => { status.textContent = ''; }, 5000);
+    });
+  });
+</script>
+</body>
+</html>
