@@ -16,14 +16,14 @@ URL = 'https://www.gts-boeblingen.de'
 def banner3_svg():
     o = [f'<rect x="-1" y="-1" width="{W + 2}" height="{H + 2}" fill="{C_FOOT}"/>']
     MID = 76.0                                        # vertikale Mitte von Logo und QR
-    lw = 175.0                                        # Logobreite
+    lw = 215.0                                        # Logobreite
     s = lw / (44.95 - 7.2)
     lh = (18.1 - 3.25) * s
     o.append(logo_svg(F, f'translate({22 - 7.2 * s:.3f},{MID - lh / 2 - 3.25 * s:.3f}) scale({s:.4f})',
                       C_WHITE, C_WHITE, C_WHITE, 'goldDark'))
-    o.append(f'<path d="M218,{MID - 48} V{MID + 48}" stroke="{C_GOLD_LT}" stroke-width="0.5"/>')
-    qs = 88.0
-    o.append(qr_code(236.0, MID - qs / 2, qs, URL, ecc='H').replace('stroke-width="0.35"', 'stroke-width="1.2"'))
+    o.append(f'<path d="M248,{MID - 40} V{MID + 40}" stroke="{C_GOLD_LT}" stroke-width="0.5"/>')
+    qs = 60.0
+    o.append(qr_code(W - 22 - qs, MID - qs / 2, qs, URL, ecc='H').replace('stroke-width="0.35"', 'stroke-width="1.2"'))
 
     # Kontaktzeile unten: Telefon (links) – E-Mail (Mitte) – Webseite (rechts)
     o.append(f'<path d="M22,136 H{W - 22}" stroke="{C_GOLD_LT}" stroke-width="0.5"/>')

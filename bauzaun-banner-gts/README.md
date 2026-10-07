@@ -27,5 +27,5 @@ großer Telefonnummer, QR-Code 48 × 48 cm mit höchster Fehlerkorrektur (H, 30 
 ![Entwurf 3](Vorschau_Bauzaunbanner_Entwurf3.png)
 
 `GTS_Bauzaunbanner_Entwurf3_340x173cm.pdf` – gleiche technische Daten wie oben.
-Logo mit Schriftzug „Gebäude · Technik · Service“ (175 cm breit) und QR-Code 88 × 88 cm
+Logo mit Schriftzug „Gebäude · Technik · Service“ (215 cm breit) und QR-Code 60 × 60 cm
 (Fehlerkorrektur H) auf Dunkelgrün; darunter über die ganze Breite Telefon, E-Mail und Webseite.
