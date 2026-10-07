@@ -154,7 +154,7 @@ if __name__ == '__main__':
         pix = p.get_pixmap(dpi=150, clip=p.trimbox)
         pix.save(os.path.join(OUT, f'Vorschau_Herbst-Flyer_{name}.png'))
         MMp = 72 / 25.4                                 # QR-Bereich der jeweiligen Seite (mm, Endformat)
-        qx0, qy0, qx1, qy1 = [(120, 267, 148, 295), (60, 255, 93, 288)][i]
+        qx0, qy0, qx1, qy1 = [(120, 266, 150, 295), (60, 255, 93, 288)][i]
         big = p.get_pixmap(dpi=200, clip=pymupdf.Rect((qx0 + B) * MMp, (qy0 + B) * MMp, (qx1 + B) * MMp, (qy1 + B) * MMp))
         img = np.frombuffer(big.samples, np.uint8).reshape(big.h, big.w, big.n)[..., :3]
         val, _, _ = cv2.QRCodeDetector().detectAndDecode(cv2.cvtColor(img, cv2.COLOR_RGB2BGR))

@@ -93,15 +93,15 @@ def herbst_svg():
     s = 67.5 / (44.95 - 7.2)
     o.append(logo_svg(F, f'translate({9.8 - 7.2 * s:.3f},{8.0 - 3.25 * s:.3f}) scale({s:.4f})',
                       C_DARK, C_DARK, C_DARK, 'goldCream'))
-    o.append(t('Ihr Herbst-Service:', 4.6, 10.2, 49.5, C_DARK, 'serif_med'))
-    for txt, yy, col in (('Laub weg.', 60.5, C_DARK), ('Rinnen frei.', 71.2, C_COPPER), ('Winterfest.', 81.9, C_DARK)):
-        o.append(t(txt, 7.6, 10.0, yy, col, 'serif_logo'))
-    o.append(f'<path d="M10.2,89.3 H30.3" stroke="{C_GOLD}" stroke-width="0.45"/>')
+    o.append(t('Ihr Herbst-Service:', 4.9, 10.2, 49.0, C_DARK, 'serif_med'))
+    for txt, yy, col in (('Laub weg.', 60.6, C_DARK), ('Rinnen frei.', 71.8, C_COPPER), ('Winterfest.', 83.0, C_DARK)):
+        o.append(t(txt, 8.1, 10.0, yy, col, 'serif_logo'))
+    o.append(f'<path d="M10.2,89.8 H30.3" stroke="{C_GOLD}" stroke-width="0.45"/>')
     para = ['Wenn die Blätter fallen, sind wir für Sie da:', 'Wir befreien Rasen, Wege und Einfahrten von',
             'Laub und reinigen Regenrinnen und Fallrohre.', 'So vermeiden Sie Rutschgefahr, Verstopfungen',
             'und Feuchtigkeitsschäden – und Ihr Grundstück', 'ist bestens vorbereitet für den Winter.']
     for i, ln in enumerate(para):
-        o.append(t(ln, 2.05, 10.2, 96.8 + i * 4.35, C_TEXT))
+        o.append(t(ln, 2.3, 10.2, 96.6 + i * 4.75, C_TEXT))
     o.append(autumn_badge(183.6, 23.9, 16.4))
     for lx, ly, ls, lr, lc in ((93, 30, 7.5, 35, C_COPPER), (101, 52, 5.0, -25, '#C9A66B'), (90, 74, 6.0, 70, C_RED),
                                (150, 50, 4.5, 15, '#C9A66B'), (160, 8, 5.5, -40, C_COPPER), (205.5, 52, 6.5, 120, C_RED)):
@@ -116,16 +116,16 @@ def herbst_svg():
     for i, it in enumerate(items):
         yy = 113.6 + i * 5.55
         o.append(icon('haken', 124.0, yy - 1.05, 3.4, C_GOLD_LT, sw=2.0))
-        o.append(t(it, 2.0, 128.6, yy, C_WHITE))
+        o.append(t(it, 2.15, 128.6, yy, C_WHITE))
     o.append(f'<circle cx="23.1" cy="133.5" r="6.2" fill="none" stroke="{C_GOLD_LT}" stroke-width="0.35"/>')
     o.append(icon('blatt', 23.1, 133.5, 6.6, C_GOLD_LT, sw=1.5))
-    o.append(t('DER HERBST KOMMT.', 2.75, 34.8, 132.1, C_GOLD_LT, 'serif_logo', tr=0.12))
-    o.append(t('WIR SIND BEREIT.', 2.75, 34.8, 137.6, C_WHITE, 'serif_logo', tr=0.12))
+    o.append(t('DER HERBST KOMMT.', 3.1, 34.8, 132.0, C_GOLD_LT, 'serif_logo', tr=0.12))
+    o.append(t('WIR SIND BEREIT.', 3.1, 34.8, 138.0, C_WHITE, 'serif_logo', tr=0.12))
     o.append(f'<path d="M110.6,127.5 V139.5" stroke="{C_GOLD_LT}" stroke-width="0.25"/>')
 
     # --- Angebot: zwei Karten + Kombi
-    o.append(t('UNSER HERBST-ANGEBOT', 3.4, 105, 150.5, C_DARK, 'serif_logo', anchor='middle', tr=0.55))
-    o.append(f'<path d="M42,148.8 H62 M148,148.8 H168" stroke="{C_GOLD}" stroke-width="0.3"/>')
+    o.append(t('UNSER HERBST-ANGEBOT', 3.8, 105, 150.8, C_DARK, 'serif_logo', anchor='middle', tr=0.55))
+    o.append(f'<path d="M36,148.9 H57 M153,148.9 H174" stroke="{C_GOLD}" stroke-width="0.3"/>')
     cards = [('rechen', 'LAUBENTFERNUNG', 'Rasen · Beete · Wege · Einfahrten',
               ['Laub rechen, blasen & aufnehmen', 'Rasen und Beete schonend reinigen',
                'Gehwege, Höfe & Parkplätze', 'Auf Wunsch inkl. Abtransport']),
@@ -134,59 +134,60 @@ def herbst_svg():
                'Sichtprüfung auf Schäden', 'Sauber und ohne Rückstände'])]
     for i, (ic, title, sub, bullets) in enumerate(cards):
         x0 = 10 + i * 98
-        o.append(f'<rect x="{x0}" y="156" width="92" height="50" rx="2.5" fill="#FBF8F2" stroke="{C_GOLD}" '
+        o.append(f'<rect x="{x0}" y="155" width="92" height="50" rx="2.5" fill="#FBF8F2" stroke="{C_GOLD}" '
                  f'stroke-width="0.3"/>')
-        o.append(f'<circle cx="{x0 + 12.5}" cy="168" r="7.2" fill="{C_DARK}"/>')
-        o.append(icon(ic, x0 + 12.5, 168, 8.4, C_GOLD_LT, sw=1.3))
-        o.append(t(title, 2.75, x0 + 24, 166.4, C_DARK, 'serif_logo', tr=0.15))
-        o.append(t(sub, 1.5, x0 + 24, 171.4, C_COPPER, 'sans_semi', tr=0.05))
+        o.append(f'<circle cx="{x0 + 12.5}" cy="167" r="7.4" fill="{C_DARK}"/>')
+        o.append(icon(ic, x0 + 12.5, 167, 8.6, C_GOLD_LT, sw=1.3))
+        o.append(t(title, 3.0, x0 + 24, 165.6, C_DARK, 'serif_logo', tr=0.12))
+        o.append(t(sub, 1.8, x0 + 24, 171.2, C_COPPER, 'sans_semi', tr=0.05))
         for j, bl in enumerate(bullets):
-            yy = 182.5 + j * 5.6
-            o.append(icon('haken', x0 + 9.5, yy - 0.95, 3.2, C_GOLD, sw=2.0))
-            o.append(t(bl, 1.75, x0 + 13.8, yy, C_TEXT))
-    o.append(f'<rect x="10" y="210" width="190" height="14" rx="2.5" fill="{C_DARK}"/>')
-    o.append(leaf(21, 217, 8.0, -30, C_COPPER))
-    o.append(leaf(25.5, 218, 6.0, 25, '#C9A66B'))
-    o.append(t('HERBST-KOMBI: LAUB + REGENRINNE', 2.6, 34, 215.8, C_GOLD_LT, 'serif_logo', tr=0.15))
-    o.append(t('Beides zusammen buchen – ein Termin, ein Ansprechpartner, alles erledigt.', 1.75, 34, 220.6, C_WHITE))
+            yy = 181.2 + j * 5.6
+            o.append(icon('haken', x0 + 9.5, yy - 1.05, 3.4, C_GOLD, sw=2.0))
+            o.append(t(bl, 2.05, x0 + 13.8, yy, C_TEXT))
+    o.append(f'<rect x="10" y="208.5" width="190" height="15.5" rx="2.5" fill="{C_DARK}"/>')
+    o.append(leaf(21, 216.2, 8.5, -30, C_COPPER))
+    o.append(leaf(25.5, 217.2, 6.4, 25, '#C9A66B'))
+    o.append(t('HERBST-KOMBI: LAUB + REGENRINNE', 2.9, 34, 214.9, C_GOLD_LT, 'serif_logo', tr=0.15))
+    o.append(t('Beides zusammen buchen – ein Termin, ein Ansprechpartner, alles erledigt.', 2.0, 34, 220.5, C_WHITE))
 
     # --- Warum jetzt?
-    o.append(f'<path d="M-3,229.5 H{W + 3}" stroke="#D8CDB9" stroke-width="0.3"/>')
-    o.append(t('WARUM JETZT?', 3.0, 105, 236.8, C_DARK, 'serif_logo', anchor='middle', tr=0.5))
-    o.append(f'<path d="M64,235.3 H80 M130,235.3 H146" stroke="{C_GOLD}" stroke-width="0.3"/>')
+    o.append(f'<path d="M-3,227.5 H{W + 3}" stroke="#D8CDB9" stroke-width="0.3"/>')
+    o.append(t('WARUM JETZT?', 3.3, 105, 234.8, C_DARK, 'serif_logo', anchor='middle', tr=0.5))
+    o.append(f'<path d="M60,233.2 H78 M132,233.2 H150" stroke="{C_GOLD}" stroke-width="0.3"/>')
     why = [('warn', 'RUTSCHGEFAHR VERMEIDEN', ['Nasses Laub auf Wegen', 'wird schnell glatt.']),
            ('tropfen', 'WASSERSCHÄDEN VORBEUGEN', ['Verstopfte Rinnen führen', 'zu Feuchtigkeit am Haus.']),
            ('schnee', 'FIT FÜR DEN WINTER', ['Freie Abläufe, bevor', 'Frost und Schnee kommen.']),
            ('haus', 'GEPFLEGTER EINDRUCK', ['Ein sauberes Grundstück', 'für Bewohner & Kunden.'])]
     for c, (ic, title, desc) in enumerate(why):
         cx = [31.5, 80.5, 129.5, 178.5][c]
-        o.append(icon(ic, cx, 245.0, 8.0, C_GOLD, sw=1.2))
-        o.append(t(title, 1.55, cx, 253.6, C_DARK, 'sans_semi', anchor='middle', tr=0.1))
+        o.append(icon(ic, cx, 242.6, 8.8, C_GOLD, sw=1.2))
+        o.append(t(title, 1.8, cx, 252.2, C_DARK, 'sans_semi', anchor='middle', tr=0.06))
         for j, dl in enumerate(desc):
-            o.append(t(dl, 1.5, cx, 257.6 + j * 3.35, C_TEXT, anchor='middle'))
+            o.append(t(dl, 1.8, cx, 256.7 + j * 3.85, C_TEXT, anchor='middle'))
 
     # --- Fußbereich
-    o.append(f'<rect x="-3" y="268" width="{W + 6}" height="{H - 268 + 3}" fill="{C_FOOT}"/>')
-    o.append(f'<path d="M151.5,268 H{W + 3} V{H + 3} H147.5 Z" fill="{C_CREAM}"/>')
-    o.append(t('KONTAKT', 2.5, 10.2, 274.6, C_WHITE, 'serif_logo', tr=0.3))
+    o.append(f'<rect x="-3" y="266" width="{W + 6}" height="{H - 266 + 3}" fill="{C_FOOT}"/>')
+    o.append(f'<path d="M151.5,266 H{W + 3} V{H + 3} H147.5 Z" fill="{C_CREAM}"/>')
+    o.append(t('KONTAKT', 2.75, 10.2, 272.6, C_WHITE, 'serif_logo', tr=0.3))
     for i, (k, txt) in enumerate((('pin', 'Böblingen und Umgebung'), ('phone', '0170 1601830'),
                                   ('mail', 'info@gts-boeblingen.de'), ('globe', 'www.gts-boeblingen.de'))):
-        yy = 279.6 + i * 3.9
-        o.append(globe(12.2, yy - 0.85, 1.2, C_GOLD_LT) if k == 'globe' else filled_icon(k, 12.2, yy - 0.85, 2.9, C_GOLD_LT))
-        o.append(t(txt, 1.75, 16.6, yy, C_WHITE))
-    o.append(f'<path d="M68.5,271.5 V292.5" stroke="{C_GOLD_LT}" stroke-width="0.25"/>')
-    o.append(leaf(76.5, 281.5, 9, -25, C_COPPER))
+        yy = 278.4 + i * 4.45
+        cap = 2.05 if k == 'pin' else 2.25            # Telefon / E-Mail / Web etwas größer
+        o.append(globe(12.2, yy - 1.05, 1.4, C_GOLD_LT) if k == 'globe' else filled_icon(k, 12.2, yy - 1.05, 3.4, C_GOLD_LT))
+        o.append(t(txt, cap, 17.0, yy, C_WHITE, 'sans' if k == 'pin' else 'sans_medium'))
+    o.append(f'<path d="M68.5,269.5 V292.5" stroke="{C_GOLD_LT}" stroke-width="0.25"/>')
+    o.append(leaf(76.0, 280.5, 9, -25, C_COPPER))
     q = [('Herbsttermine sind', C_WHITE), ('schnell vergeben.', C_WHITE), ('Sichern Sie sich jetzt', C_GOLD_LT),
          ('Ihren Wunschtermin.', C_GOLD_LT)]
     for i, (ln, col) in enumerate(q):
-        o.append(t(ln, 2.05, 84.0, 277.2 + i * 4.3, col, skew=-11))
-    o.append(qr_code(123.5, 271.0, 21.0))
-    o.append(t('JETZT HERBSTTERMIN', 2.45, 156.0, 275.0, C_DARK, 'serif_logo', tr=0.2))
-    o.append(t('SICHERN.', 2.45, 156.0, 279.1, C_DARK, 'serif_logo', tr=0.2))
-    o.append(t('Rufen Sie an oder schreiben Sie uns –', 1.4, 156.0, 283.2, C_TEXT))
-    o.append(t('wir melden uns schnell bei Ihnen.', 1.4, 156.0, 285.9, C_TEXT))
-    o.append(f'<rect x="156" y="288.2" width="47" height="4.6" rx="2.3" fill="{C_GOLD}"/>')
-    o.append(t('JETZT ANRUFEN: 0170 1601830', 1.35, 179.5, 291.18, '#FFFFFF', 'sans_semi', anchor='middle', tr=0.15))
+        o.append(t(ln, 2.25, 83.5, 275.6 + i * 4.75, col, skew=-11))
+    o.append(qr_code(124.0, 270.0, 22.0))
+    o.append(t('JETZT HERBSTTERMIN', 2.7, 156.0, 273.6, C_DARK, 'serif_logo', tr=0.2))
+    o.append(t('SICHERN.', 2.7, 156.0, 278.3, C_DARK, 'serif_logo', tr=0.2))
+    o.append(t('Rufen Sie an oder schreiben Sie uns –', 1.55, 156.0, 283.0, C_TEXT))
+    o.append(t('wir melden uns schnell bei Ihnen.', 1.55, 156.0, 286.1, C_TEXT))
+    o.append(f'<rect x="156" y="288.3" width="48" height="5.2" rx="2.6" fill="{C_GOLD}"/>')
+    o.append(t('JETZT ANRUFEN: 0170 1601830', 1.5, 180.0, 291.65, '#FFFFFF', 'sans_semi', anchor='middle', tr=0.15))
 
     defs = gold_gradient('goldCream', 7, 8, 16, 18, [(0, '#B8935C'), (0.45, '#8C6A3B'), (0.75, '#B99661'), (1, '#9B7845')])
     return (f'<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" '
