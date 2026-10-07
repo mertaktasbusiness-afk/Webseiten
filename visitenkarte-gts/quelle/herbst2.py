@@ -13,6 +13,38 @@ OUT = sys.argv[1] if len(sys.argv) > 1 else 'herbst_out'
 os.makedirs(OUT, exist_ok=True)
 URL = 'https://www.gts-boeblingen.de'
 
+
+# Variante B (GTS_VARIANT=B): Fließtexte etwas größer, Kontaktdaten groß & fett
+VARIANT_B = os.environ.get('GTS_VARIANT') == 'B'
+if VARIANT_B:
+    _t = t
+
+    def t(text, cap, *a, **k):
+        return _t(text, cap * 1.05 if cap < 2.1 else cap, *a, **k)
+
+
+def big_contact(o, top, qr_top, title=False):
+    """Variante B: große, fette Kontaktzeilen + QR-Code mit Hinweis daneben."""
+    from gts import ink_width as _iw
+    y = top
+    if title:
+        o.append(_t('KONTAKT', 3.2, 10.2, y, C_WHITE, 'serif_logo', tr=0.3))
+        y += 6.6
+    for k, txt, cap, font in (('phone', '0170 1601830', 3.4, 'sans_semi'),
+                              ('mail', 'info@gts-boeblingen.de', 2.85, 'sans_semi'),
+                              ('globe', 'www.gts-boeblingen.de', 2.85, 'sans_semi'),
+                              ('pin', 'Böblingen und Umgebung', 2.3, 'sans')):
+        ic = y - cap / 2
+        sz = cap * 1.75
+        o.append(globe(12.6, ic, sz * 0.42, C_GOLD_LT) if k == 'globe' else filled_icon(k, 12.6, ic, sz, C_GOLD_LT))
+        o.append(_t(txt, cap, 18.5, y, C_WHITE, font, tr=0.02))
+        y += cap + 2.75
+    o.append(f'<path d="M84,{qr_top - 1} V{qr_top + 25}" stroke="{C_GOLD_LT}" stroke-width="0.3"/>')
+    o.append(qr_code(90.0, qr_top, 24.0))
+    for i, ln in enumerate(('QR-Code scannen', '& Webseite', 'besuchen')):
+        o.append(_t(ln, 2.0, 118.5, qr_top + 9.5 + i * 4.3, C_GOLD_LT if i == 0 else C_WHITE, 'sans_medium'))
+
+
 SERVICES = [                                       # Texte gemäß Korrektur des Kunden (herbst_rueckseite_kunde.jpg)
     ('gebaeude', ['GEBÄUDEREINIGUNG'], ['Unterhalts-, Grund-, Glas-', 'und Fassadenreinigung']),
     ('haus', ['HAUSMEISTERSERVICE'], ['Objektbetreuung und', 'Instandhaltung']),
@@ -93,22 +125,25 @@ def back_svg():
     FY = 3.0
     o.append(f'<rect x="-3" y="249.2" width="{W + 6}" height="{H - 249.2 + 3}" fill="{C_FOOT}"/>')
     o.append(f'<path d="M153.5,249.2 H{W + 3} V{H + 3} H145.5 Z" fill="{C_CREAM}"/>')
-    o.append(t('KONTAKT', 3.4, 9.6, 257.7 + FY, C_WHITE, 'serif_logo', tr=0.3))
-    for i, (k, txt) in enumerate((('pin', 'Böblingen und Umgebung'), ('phone', '0170 1601830'),
-                                  ('mail', 'info@gts-boeblingen.de'), ('globe', 'www.gts-boeblingen.de'))):
-        yy = 265.4 + FY + i * 6.0
-        cap = 2.3 if k == 'pin' else 2.5              # Telefon / E-Mail / Web etwas größer
-        o.append(globe(12.1, yy - 1.2, 1.55, C_GOLD_LT) if k == 'globe'
-                 else filled_icon(k, 12.1, yy - 1.2, 3.7, C_GOLD_LT))
-        o.append(t(txt, cap, 16.8, yy, C_WHITE, 'sans' if k == 'pin' else 'sans_medium'))
-    o.append(qr_code(65.0, 254.6 + FY, 22.5, URL))
-    o.append(t('QR-Code scannen', 1.6, 76.25, 282.4 + FY, C_WHITE, 'sans_medium', anchor='middle'))
-    o.append(f'<path d="M92.0,{253.7 + FY} V{283.6 + FY}" stroke="{C_GOLD_LT}" stroke-width="0.3"/>')
-    o.append(t('\u201C', 13.0, 94.8, 268.5 + FY, C_GOLD_LT, 'serif_logo'))
-    for i, (ln, col) in enumerate((('Vertrauen ist der Anfang', C_WHITE), ('jeder erfolgreichen', C_WHITE),
-                                   ('Zusammenarbeit.', C_WHITE), ('Lassen Sie uns gemeinsam', C_GOLD_LT),
-                                   ('Maßstäbe setzen.', C_GOLD_LT))):
-        o.append(t(ln, 2.05, 103.8, 262.0 + FY + i * 4.45, col, skew=-11))
+    if VARIANT_B:
+        big_contact(o, 261.0, 262.0, title=True)
+    else:
+        o.append(t('KONTAKT', 3.4, 9.6, 257.7 + FY, C_WHITE, 'serif_logo', tr=0.3))
+        for i, (k, txt) in enumerate((('pin', 'Böblingen und Umgebung'), ('phone', '0170 1601830'),
+                                      ('mail', 'info@gts-boeblingen.de'), ('globe', 'www.gts-boeblingen.de'))):
+            yy = 265.4 + FY + i * 6.0
+            cap = 2.3 if k == 'pin' else 2.5              # Telefon / E-Mail / Web etwas größer
+            o.append(globe(12.1, yy - 1.2, 1.55, C_GOLD_LT) if k == 'globe'
+                     else filled_icon(k, 12.1, yy - 1.2, 3.7, C_GOLD_LT))
+            o.append(t(txt, cap, 16.8, yy, C_WHITE, 'sans' if k == 'pin' else 'sans_medium'))
+        o.append(qr_code(65.0, 254.6 + FY, 22.5, URL))
+        o.append(t('QR-Code scannen', 1.6, 76.25, 282.4 + FY, C_WHITE, 'sans_medium', anchor='middle'))
+        o.append(f'<path d="M92.0,{253.7 + FY} V{283.6 + FY}" stroke="{C_GOLD_LT}" stroke-width="0.3"/>')
+        o.append(t('\u201C', 13.0, 94.8, 268.5 + FY, C_GOLD_LT, 'serif_logo'))
+        for i, (ln, col) in enumerate((('Vertrauen ist der Anfang', C_WHITE), ('jeder erfolgreichen', C_WHITE),
+                                       ('Zusammenarbeit.', C_WHITE), ('Lassen Sie uns gemeinsam', C_GOLD_LT),
+                                       ('Maßstäbe setzen.', C_GOLD_LT))):
+            o.append(t(ln, 2.05, 103.8, 262.0 + FY + i * 4.45, col, skew=-11))
     o.append(t('LASSEN SIE UNS INS', 2.85, 157.5, 257.3 + FY, C_DARK, 'serif_logo', tr=0.2))
     o.append(t('GESPRÄCH KOMMEN.', 2.85, 157.5, 262.8 + FY, C_DARK, 'serif_logo', tr=0.2))
     o.append(t('Wir beraten Sie persönlich und finden', 1.5, 157.5, 268.4 + FY, C_TEXT))
@@ -145,16 +180,18 @@ if __name__ == '__main__':
         pg.trimbox = trim
     w.add_metadata({'/Title': 'GTS Herbst-Flyer A4 beidseitig (Seite 1 vorne, Seite 2 hinten; 3 mm Beschnitt, CMYK)',
                     '/Author': 'GTS Gebäude Technik Service'})
-    pdf = os.path.join(OUT, 'GTS_Herbst-Flyer_A4_beidseitig.pdf')
+    SUF = '_Variante-B' if VARIANT_B else ''
+    pdf = os.path.join(OUT, f'GTS_Herbst-Flyer_A4_beidseitig{SUF}.pdf')
     w.write(pdf)
     doc = pymupdf.open(pdf)
     for i, (name, _) in enumerate(pages):
         p = doc[i]
         assert not p.get_fonts()
         pix = p.get_pixmap(dpi=150, clip=p.trimbox)
-        pix.save(os.path.join(OUT, f'Vorschau_Herbst-Flyer_{name}.png'))
+        pix.save(os.path.join(OUT, f'Vorschau_Herbst-Flyer_{name}{SUF}.png'))
         MMp = 72 / 25.4                                 # QR-Bereich der jeweiligen Seite (mm, Endformat)
-        qx0, qy0, qx1, qy1 = [(120, 266, 150, 295), (60, 255, 93, 288)][i]
+        qx0, qy0, qx1, qy1 = ([(86, 265, 118, 296), (86, 259, 118, 289)] if VARIANT_B else
+                                  [(120, 266, 150, 295), (60, 255, 93, 288)])[i]
         big = p.get_pixmap(dpi=200, clip=pymupdf.Rect((qx0 + B) * MMp, (qy0 + B) * MMp, (qx1 + B) * MMp, (qy1 + B) * MMp))
         img = np.frombuffer(big.samples, np.uint8).reshape(big.h, big.w, big.n)[..., :3]
         val, _, _ = cv2.QRCodeDetector().detectAndDecode(cv2.cvtColor(img, cv2.COLOR_RGB2BGR))

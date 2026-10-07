@@ -12,6 +12,38 @@ OUT = sys.argv[1] if len(sys.argv) > 1 else 'herbst_out'
 os.makedirs(OUT, exist_ok=True)
 C_COPPER, C_RED, C_WHITE = '#B5622A', '#8E3B1F', '#F5F2EB'
 
+
+# Variante B (GTS_VARIANT=B): Fließtexte etwas größer, Kontaktdaten groß & fett
+VARIANT_B = os.environ.get('GTS_VARIANT') == 'B'
+if VARIANT_B:
+    _t = t
+
+    def t(text, cap, *a, **k):
+        return _t(text, cap * 1.05 if cap < 2.1 else cap, *a, **k)
+
+
+def big_contact(o, top, qr_top, title=False):
+    """Variante B: große, fette Kontaktzeilen + QR-Code mit Hinweis daneben."""
+    from gts import ink_width as _iw
+    y = top
+    if title:
+        o.append(_t('KONTAKT', 3.2, 10.2, y, C_WHITE, 'serif_logo', tr=0.3))
+        y += 6.6
+    for k, txt, cap, font in (('phone', '0170 1601830', 3.4, 'sans_semi'),
+                              ('mail', 'info@gts-boeblingen.de', 2.85, 'sans_semi'),
+                              ('globe', 'www.gts-boeblingen.de', 2.85, 'sans_semi'),
+                              ('pin', 'Böblingen und Umgebung', 2.3, 'sans')):
+        ic = y - cap / 2
+        sz = cap * 1.75
+        o.append(globe(12.6, ic, sz * 0.42, C_GOLD_LT) if k == 'globe' else filled_icon(k, 12.6, ic, sz, C_GOLD_LT))
+        o.append(_t(txt, cap, 18.5, y, C_WHITE, font, tr=0.02))
+        y += cap + 2.75
+    o.append(f'<path d="M84,{qr_top - 1} V{qr_top + 25}" stroke="{C_GOLD_LT}" stroke-width="0.3"/>')
+    o.append(qr_code(90.0, qr_top, 24.0))
+    for i, ln in enumerate(('QR-Code scannen', '& Webseite', 'besuchen')):
+        o.append(_t(ln, 2.0, 118.5, qr_top + 9.5 + i * 4.3, C_GOLD_LT if i == 0 else C_WHITE, 'sans_medium'))
+
+
 IC.update({
     'rechen': ['M12 2v13', 'M5 15h14', 'M5 15v5M8.5 15v5M12 15v5M15.5 15v5M19 15v5'],
     'rinne': ['M2 10l10-7 10 7', 'M3 12h18v2.5a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 14.5z',
@@ -168,20 +200,23 @@ def herbst_svg():
     # --- Fußbereich
     o.append(f'<rect x="-3" y="266" width="{W + 6}" height="{H - 266 + 3}" fill="{C_FOOT}"/>')
     o.append(f'<path d="M151.5,266 H{W + 3} V{H + 3} H147.5 Z" fill="{C_CREAM}"/>')
-    o.append(t('KONTAKT', 2.75, 10.2, 272.6, C_WHITE, 'serif_logo', tr=0.3))
-    for i, (k, txt) in enumerate((('pin', 'Böblingen und Umgebung'), ('phone', '0170 1601830'),
-                                  ('mail', 'info@gts-boeblingen.de'), ('globe', 'www.gts-boeblingen.de'))):
-        yy = 278.4 + i * 4.45
-        cap = 2.05 if k == 'pin' else 2.25            # Telefon / E-Mail / Web etwas größer
-        o.append(globe(12.2, yy - 1.05, 1.4, C_GOLD_LT) if k == 'globe' else filled_icon(k, 12.2, yy - 1.05, 3.4, C_GOLD_LT))
-        o.append(t(txt, cap, 17.0, yy, C_WHITE, 'sans' if k == 'pin' else 'sans_medium'))
-    o.append(f'<path d="M68.5,269.5 V292.5" stroke="{C_GOLD_LT}" stroke-width="0.25"/>')
-    o.append(leaf(76.0, 280.5, 9, -25, C_COPPER))
-    q = [('Herbsttermine sind', C_WHITE), ('schnell vergeben.', C_WHITE), ('Sichern Sie sich jetzt', C_GOLD_LT),
-         ('Ihren Wunschtermin.', C_GOLD_LT)]
-    for i, (ln, col) in enumerate(q):
-        o.append(t(ln, 2.25, 83.5, 275.6 + i * 4.75, col, skew=-11))
-    o.append(qr_code(124.0, 270.0, 22.0))
+    if VARIANT_B:
+        big_contact(o, 273.4, 268.8)
+    else:
+        o.append(t('KONTAKT', 2.75, 10.2, 272.6, C_WHITE, 'serif_logo', tr=0.3))
+        for i, (k, txt) in enumerate((('pin', 'Böblingen und Umgebung'), ('phone', '0170 1601830'),
+                                      ('mail', 'info@gts-boeblingen.de'), ('globe', 'www.gts-boeblingen.de'))):
+            yy = 278.4 + i * 4.45
+            cap = 2.05 if k == 'pin' else 2.25            # Telefon / E-Mail / Web etwas größer
+            o.append(globe(12.2, yy - 1.05, 1.4, C_GOLD_LT) if k == 'globe' else filled_icon(k, 12.2, yy - 1.05, 3.4, C_GOLD_LT))
+            o.append(t(txt, cap, 17.0, yy, C_WHITE, 'sans' if k == 'pin' else 'sans_medium'))
+        o.append(f'<path d="M68.5,269.5 V292.5" stroke="{C_GOLD_LT}" stroke-width="0.25"/>')
+        o.append(leaf(76.0, 280.5, 9, -25, C_COPPER))
+        q = [('Herbsttermine sind', C_WHITE), ('schnell vergeben.', C_WHITE), ('Sichern Sie sich jetzt', C_GOLD_LT),
+             ('Ihren Wunschtermin.', C_GOLD_LT)]
+        for i, (ln, col) in enumerate(q):
+            o.append(t(ln, 2.25, 83.5, 275.6 + i * 4.75, col, skew=-11))
+        o.append(qr_code(124.0, 270.0, 22.0))
     o.append(t('JETZT HERBSTTERMIN', 2.7, 156.0, 273.6, C_DARK, 'serif_logo', tr=0.2))
     o.append(t('SICHERN.', 2.7, 156.0, 278.3, C_DARK, 'serif_logo', tr=0.2))
     o.append(t('Rufen Sie an oder schreiben Sie uns –', 1.55, 156.0, 283.0, C_TEXT))

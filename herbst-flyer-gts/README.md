@@ -13,3 +13,14 @@
 
 Bitte vor dem Druck prüfen: Es sind keine Preise angegeben, und die Leistungspunkte des Herbst-Angebots
 sollten zum tatsächlichen Angebot passen. Skripte: `visitenkarte-gts/quelle/herbst.py`, `herbst2.py`
+
+## Variante B (separate Datei)
+
+| Vorderseite | Rückseite |
+|---|---|
+| ![Vorderseite B](Vorschau_Herbst-Flyer_Vorderseite_Variante-B.png) | ![Rückseite B](Vorschau_Herbst-Flyer_Rueckseite_Variante-B.png) |
+
+`GTS_Herbst-Flyer_A4_beidseitig_Variante-B.pdf` – gleiche technische Daten.
+Kleinere Fließtexte etwas größer; **Telefon, E-Mail und Webseite groß und fett**, QR-Code daneben
+(„QR-Code scannen & Webseite besuchen“). Dafür entfallen die beiden kursiven Zitate im Fußbereich.
+Neu erzeugen mit `GTS_VARIANT=B python3 herbst2.py ../../herbst-flyer-gts`.
