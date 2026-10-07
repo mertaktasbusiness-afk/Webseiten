@@ -3,7 +3,7 @@ import os, subprocess, sys
 import numpy as np, cv2, cairosvg, pymupdf
 from pypdf import PdfReader, PdfWriter
 from pypdf.generic import RectangleObject
-from flyer import F, C_GOLD_LT, C_FOOT
+from flyer import F, C_GOLD_LT, C_FOOT, t, filled_icon, globe
 from gts import logo_svg, gold_gradient
 from herbst import qr_code, C_WHITE
 
@@ -15,14 +15,33 @@ URL = 'https://www.gts-boeblingen.de'
 
 def banner3_svg():
     o = [f'<rect x="-1" y="-1" width="{W + 2}" height="{H + 2}" fill="{C_FOOT}"/>']
+    MID = 76.0                                        # vertikale Mitte von Logo und QR
     lw = 175.0                                        # Logobreite
     s = lw / (44.95 - 7.2)
     lh = (18.1 - 3.25) * s
-    o.append(logo_svg(F, f'translate({22 - 7.2 * s:.3f},{(H - lh) / 2 - 3.25 * s:.3f}) scale({s:.4f})',
+    o.append(logo_svg(F, f'translate({22 - 7.2 * s:.3f},{MID - lh / 2 - 3.25 * s:.3f}) scale({s:.4f})',
                       C_WHITE, C_WHITE, C_WHITE, 'goldDark'))
-    o.append(f'<path d="M{218},{30} V{H - 30}" stroke="{C_GOLD_LT}" stroke-width="0.5"/>')
+    o.append(f'<path d="M218,{MID - 48} V{MID + 48}" stroke="{C_GOLD_LT}" stroke-width="0.5"/>')
     qs = 88.0
-    o.append(qr_code(236.0, (H - qs) / 2, qs, URL, ecc='H').replace(f'stroke-width="0.35"', 'stroke-width="1.2"'))
+    o.append(qr_code(236.0, MID - qs / 2, qs, URL, ecc='H').replace('stroke-width="0.35"', 'stroke-width="1.2"'))
+
+    # Kontaktzeile unten: Telefon (links) – E-Mail (Mitte) – Webseite (rechts)
+    o.append(f'<path d="M22,136 H{W - 22}" stroke="{C_GOLD_LT}" stroke-width="0.5"/>')
+    cap, yb = 4.6, 155.0
+    ic = yb - cap / 2
+    from gts import ink_width
+    f = F['sans_medium']
+    size = f.size_for_cap(cap)
+    items = [('phone', '0170 1601830'), ('mail', 'info@gts-boeblingen.de'), ('globe', 'www.gts-boeblingen.de')]
+    ICON_W = 9.0                                         # Icon + Abstand zum Text
+    widths = [ICON_W + ink_width(f, txt, size, 0.15)[0] for _, txt in items]
+    gap = (W - 44 - sum(widths)) / 2                     # gleiche Abstände, bündig 22 cm links/rechts
+    x = 22.0
+    for (k, txt), wdt in zip(items, widths):
+        cx = x + 3.6
+        o.append(globe(cx, ic, 3.2, C_GOLD_LT) if k == 'globe' else filled_icon(k, cx, ic, 8.8, C_GOLD_LT))
+        o.append(t(txt, cap, x + ICON_W, yb, C_WHITE, 'sans_medium', tr=0.15))
+        x += wdt + gap
     defs = gold_gradient('goldDark', 6, 5, 20, 20, [(0, '#D8BC8A'), (0.45, '#A9844E'), (0.75, '#CDAE78'), (1, '#B08D58')])
     return (f'<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" '
             f'width="{(W + 2 * B) * 10}mm" height="{(H + 2 * B) * 10}mm" viewBox="-1 -1 {W + 2 * B} {H + 2 * B}">'
