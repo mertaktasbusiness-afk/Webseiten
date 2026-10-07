@@ -21,3 +21,11 @@ Bei der Bestellung angeben: **Mesh-Plane** (winddurchlässig, empfohlen für Bau
 `GTS_Bauzaunbanner_Entwurf2_340x173cm.pdf` – gleiche technische Daten wie oben.
 Heller und ruhiger: großes Logo, Claim „Gebäude in besten Händen.“, durchgehende Kontaktleiste mit
 großer Telefonnummer, QR-Code 48 × 48 cm mit höchster Fehlerkorrektur (H, 30 %) für die Mesh-Plane.
+
+## Entwurf 3 – nur Logo + QR-Code (separate Datei)
+
+![Entwurf 3](Vorschau_Bauzaunbanner_Entwurf3.png)
+
+`GTS_Bauzaunbanner_Entwurf3_340x173cm.pdf` – gleiche technische Daten wie oben.
+Logo mit Schriftzug „Gebäude · Technik · Service“ (175 cm breit) und QR-Code 88 × 88 cm
+(Fehlerkorrektur H) auf Dunkelgrün.
